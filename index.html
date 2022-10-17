@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input id="upload" type="file"/>
+  <div id="download">下载图片</div>
+  <script>
+    const download = document.querySelector('#download');
+    download.onclick = async () => {
+      var response = await fetch("https://obj.pipi.cn/starPlan/43fc4f5c8038e0d5069e3d2023556fb9.png")
+      var blob = await response.blob();
+      const url =  URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      a.href = url;
+      a.download = 'name';
+      a.click();
+      URL.revokeObjectURL(newUrl);
+    }
+  </script>
+</body>
+</html>

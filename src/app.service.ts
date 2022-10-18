@@ -15,10 +15,6 @@ export class AppService {
   async login() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    // await page.goto(
-    //   'https://keeper.maoyan.com/business/login?appkey=com.sankuai.movie.pro.vision&continueUrl=https://vision.maoyan.com/&feconfig=com.sankuai.movie.pro.vision',
-    //   { waitUntil: 'load' },
-    // );
     await page.goto('https://vision.maoyan.com', { waitUntil: 'networkidle2' });
     // 点击跳转登陆
     const loginBtn = await page.$('.username button');
@@ -33,8 +29,8 @@ export class AppService {
     //等待页面跳转完成，一般点击某个按钮需要跳转时，都需要等待 page.waitForNavigation() 执行完毕才表示跳转成功
     await Promise.all([okButtonElement.click(), page.waitForNavigation()]);
     console.log('vision 登录成功');
-    // await page.close();
-    // await browser.close();
+    await page.close();
+    await browser.close();
     return 'vision 登录成功'
   }
 
@@ -112,7 +108,7 @@ export class AppService {
         console.log(frame.url())
         if (frame.url().includes('https://keeper.maoyan.com/business/login')){
             await frame.type('#loginVoucher', 'liukexin08');
-            await frame.type('#password', 'abc');
+            await frame.type('#password', 'liukexin1998');
             await Promise.all([
                 frame.click('.login'),
                 page.waitForNavigation()
@@ -199,7 +195,7 @@ export class AppService {
   }
 
   async image_pdf() {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.goto("https://www.juejin.cn/");
     await page.screenshot({path: 'juejin.png'});

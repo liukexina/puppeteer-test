@@ -683,15 +683,6 @@ export class AppService {
   }
 
   async image_pdf() {
-    // const browser = await puppeteer.launch({ headless: false });
-    // const page = await browser.newPage();
-    // await page.goto("https://www.juejin.cn/", { waitUntil: 'networkidle2' });
-    // await page.screenshot({ path: 'juejin.png' });
-    // await page.pdf({
-    //   path: 'juejin.pdf', // 文件保存路径
-    //   format: 'A4', // 页面大小
-    // });
-    // await browser.close();
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto('https://juejin.cn/', { waitUntil: 'networkidle2' });

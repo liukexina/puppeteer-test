@@ -147,6 +147,7 @@ export class BrowserServiceMult {
       await this.Init();
       console.log('browser重启完毕');
     }
+    console.log('reset')
   }
 }
 

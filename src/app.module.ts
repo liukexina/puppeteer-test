@@ -9,3 +9,4 @@ import { AppService } from './app.service';
   providers: [AppService, ...AllBrowserService],
 })
 export class AppModule {}
+

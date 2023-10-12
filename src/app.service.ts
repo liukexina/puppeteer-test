@@ -683,15 +683,48 @@ export class AppService {
   }
 
   async image_pdf() {
-    const browser = await puppeteer.launch({ headless: false });
+    // const browser = await puppeteer.launch({ headless: false });
+    // const page = await browser.newPage();
+    // await page.goto("https://www.juejin.cn/", { waitUntil: 'networkidle2' });
+    // await page.screenshot({ path: 'juejin.png' });
+    // await page.pdf({
+    //   path: 'juejin.pdf', // 文件保存路径
+    //   format: 'A4', // 页面大小
+    // });
+    // await browser.close();
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto("https://www.juejin.cn/", { waitUntil: 'networkidle2' });
-    await page.screenshot({ path: 'juejin.png' });
+    await page.goto('https://juejin.cn/', { waitUntil: 'networkidle2' });
+    const imageType = 'png'
+    const documentSize = await page.evaluate(() => {
+      return {
+        width: document.documentElement.clientWidth,
+        height : document.body.clientHeight,
+      }
+    })
+    await page.screenshot({
+        path: 'capture.png', 
+        type: imageType,
+        quality: imageType === 'jpeg' ? 100 : undefined,
+        fullPage: true, //边滚动边截图,
+        // clip: {
+        //   x: 0,
+        //   y: 0,
+        //   height: documentSize.height,
+        //   width: documentSize.width,
+        // },
+        omitBackground: true,
+    });
+    let element = await page.$('.main-nav');
+    await element.screenshot({
+        path: 'element.png'
+    });
     await page.pdf({
       path: 'juejin.pdf', // 文件保存路径
       format: 'A4', // 页面大小
     });
-    await browser.close();
+    // await page.close();
+    // await browser.close();
   }
 
   waitForFile(fileName) {
